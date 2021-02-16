@@ -49,6 +49,6 @@ def setup_desktop():
         ],
         'port': 5901,
         'timeout': 30,
-        'mappath': {'/': '/vnc.html'},
+        'mappath': {'/': '/vnc_lite.html'}, #I dont understand why just going to vnc makes it die
         'new_browser_window': True
     }
