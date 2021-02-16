@@ -66,6 +66,8 @@
     overflow: hidden;
 }
 
+/* end style from vnc_lite*/ 
+
   .noVNC_only_touch.noVNC_hidden {
     display: none;
   }
