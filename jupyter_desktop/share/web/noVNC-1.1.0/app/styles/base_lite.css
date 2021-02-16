@@ -29,12 +29,43 @@
     background-position:right bottom;
     height:100%;
     touch-action: none;
+    /* from vnc_lite og style below*/
+    flex-direction: column;
+    display: flex; 
   }
   
   html {
     height:100%;
   }
   
+  /*
+  Original style from vnc_lite
+  */
+
+#top_bar {
+    background-color: #6e84a3;
+    color: white;
+    font: bold 12px Helvetica;
+    padding: 6px 5px 4px 5px;
+    border-bottom: 1px outset;
+}
+#status {
+    text-align: center;
+}
+#sendCtrlAltDelButton {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    border: 1px outset;
+    padding: 5px 5px 4px 5px;
+    cursor: pointer;
+}
+
+#screen {
+    flex: 1; /* fill remaining space */
+    overflow: hidden;
+}
+
   .noVNC_only_touch.noVNC_hidden {
     display: none;
   }
