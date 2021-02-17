@@ -21,7 +21,8 @@ def setup_desktop():
     else:
         # Use bundled tigervnc
         vnc_args = [
-            os.path.join(HERE, 'share/tigervnc/bin/vncserver'),
+            os.path.join(HERE, 'share/tigervnc/bin/vncserver'), #older tigervnc
+            #os.path.join(HERE, 'share/tigervnc/bin/x0vncserver'), #fails
             '-rfbunixpath', sockets_path,
         ]
         socket_args = [
@@ -51,8 +52,10 @@ def setup_desktop():
         'port': 5901,
         'timeout': 30,
         'mappath': {'/': '/vnc_lite.html'}, #uncomment if you want it to work (1.1.0) has websocket error w/ 1.2.0
-        #'mappath': {'/': '/vnc.html'},
+        #'mappath': {'/': '/vnc.html'}, #fails w/ tigervnc or turbovnc regardless
+        #"ws://127.0.0.1:8888/websockify"
         #some websocket error, investigate, same websocket error with 1.2.0
-        #I dont understand why just going to vnc makes it die
+        #
+        #'mappath': {'/': '/vnc_jose.html'},
         'new_browser_window': True
     }

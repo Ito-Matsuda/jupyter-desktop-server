@@ -17,7 +17,7 @@
         http://example.com/?host=HOST&port=PORT&scale=true
     -->
     <title>noVNC</title>
-    
+
     <meta charset="utf-8">
 
     <style>
@@ -61,10 +61,6 @@
 
     <!-- Promise polyfill for IE11 -->
     <script src="vendor/promise.js"></script>
-
-    <!-- Stylesheets -->
-    <!-- will this style break the thing?-->
-    <link rel="stylesheet" href="app/styles/base_lite.css">
 
     <!-- ES2015/ES6 modules polyfill -->
     <script type="module">
@@ -172,7 +168,7 @@
         if (window.location.protocol === "https:") {
             url = 'wss';
         } else {
-            url = 'ws';
+            url = 'ws'; //uses this on local 
         }
         url += '://' + host;
         if(port) {
@@ -181,6 +177,7 @@
         url += '/' + path;
 
         // Creating a new RFB object will start a new connection
+        // This new RFB works fine
         rfb = new RFB(document.getElementById('screen'), url,
                       { credentials: { password: password } });
 
@@ -202,68 +199,8 @@
         <div id="status">Loading</div>
         <div id="sendCtrlAltDelButton">Send CtrlAltDel</div>
     </div>
-     <!-- noVNC Control Bar -->
-    <div id="noVNC_control_bar_anchor" class="noVNC_vcenter">
-
-        <div id="noVNC_control_bar">
-            <div id="noVNC_control_bar_handle" title="Hide/Show the control bar"><div></div></div>
-
-            <div class="noVNC_scroll">
-
-            <h1 class="noVNC_logo" translate="no"><span>no</span><br>VNC</h1>
-
-            <!-- Drag/Pan the viewport -->
-            <input type="image" alt="viewport drag" src="app/images/drag.svg"
-                id="noVNC_view_drag_button" class="noVNC_button noVNC_hidden"
-                title="Move/Drag Viewport">
-
-            <!--noVNC Touch Device only buttons deleted
-                    --> 
-            <!-- deleted -->
-
-            <!-- Shutdown/Reboot 
-            deleted
-            </div> -->
-
-            <!-- Clipboard -->
-            <input type="image" alt="Clipboard" src="app/images/clipboard.svg"
-                id="noVNC_clipboard_button" class="noVNC_button"
-                title="Clipboard">
-            <div class="noVNC_vcenter">
-            <div id="noVNC_clipboard" class="noVNC_panel">
-                <div class="noVNC_heading">
-                    <img alt="" src="app/images/clipboard.svg"> Clipboard
-                </div>
-                <textarea id="noVNC_clipboard_text" rows=5></textarea>
-                <br>
-                <input id="noVNC_clipboard_clear_button" type="button"
-                    value="Clear" class="noVNC_submit">
-            </div>
-            </div>
-
-            <!-- Toggle fullscreen -->
-            <input type="image" alt="Fullscreen" src="app/images/fullscreen.svg"
-                id="noVNC_fullscreen_button" class="noVNC_button noVNC_hidden"
-                title="Fullscreen">
-
-            <!-- Settings deleted
-            </div> -->
-
-            <!-- Connection Controls -->
-            <input type="image" alt="Disconnect" src="app/images/disconnect.svg"
-                id="noVNC_disconnect_button" class="noVNC_button"
-                title="Disconnect">
-
-            </div>
-        </div>
-
-        <div id="noVNC_control_bar_hint"></div>
-
-        </div> <!-- End of noVNC_control_bar -->
     <div id="screen">
         <!-- This is where the remote screen will appear -->
-        <!--Is this where I make my changes?-->
-       
     </div>
 </body>
 </html>
