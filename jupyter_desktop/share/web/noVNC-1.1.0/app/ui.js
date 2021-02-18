@@ -964,6 +964,27 @@ const UI = {
             .classList.remove("noVNC_open");
     },
 
+
+    //testing if this works better
+    /*
+    readQueryVariable(name, defaultValue) {
+        // A URL with a query parameter can look like this:
+        // https://www.example.com?myqueryparam=myvalue
+        //
+        // Note that we use location.href instead of location.search
+        // because Firefox < 53 has a bug w.r.t location.search
+        const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+              match = document.location.href.match(re);
+        if (typeof defaultValue === 'undefined') { defaultValue = null; }
+
+        if (match) {
+            // We have to decode the URL since want the cleartext value
+            return decodeURIComponent(match[1]);
+        }
+
+        return defaultValue;
+    }, //end testing if this works better
+    */
     connect(event, password) {
 
         // Ignore when rfb already exists
@@ -971,10 +992,11 @@ const UI = {
             return;
         }
 
-        const host = UI.getSetting('host');
-        const port = UI.getSetting('port');
-        const path = UI.getSetting('path');
+        //const host = UI.getSetting('host');
+        //const port = UI.getSetting('port');
+        //const path = UI.getSetting('path');
 
+        
         if (typeof password === 'undefined') {
             password = WebUtil.getConfigVar('password');
             UI.reconnect_password = password;
@@ -983,6 +1005,16 @@ const UI = {
         if (password === null) {
             password = undefined;
         }
+        
+
+        //try these
+        const host = readQueryVariable('host', window.location.hostname);
+        let port = readQueryVariable('port', window.location.port);
+        password = readQueryVariable('password', ''); // ha=a=aahahah
+        // MODIFICATION FROM vnc_lite.html
+        const path = readQueryVariable('path', window.location.pathname.replace(/[^/]*$/, '').substring(1) + 'websockify');
+        // end try these
+
 
         UI.hideStatus();
 
@@ -1013,15 +1045,15 @@ const UI = {
         //simply swapping this in does not work (before it was desktop but the get element needs to change)
         //should have been novnc container hold up
         // regardless if i use this or the other one I get the same error with 1006 for websockify in the same place
-        //UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
-        //      { credentials: { password: password } });
-        
+        UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
+              { credentials: { password: password } });
+        /*
         UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
                          { shared: UI.getSetting('shared'),
                            showDotCursor: UI.getSetting('show_dot'),
                            repeaterID: UI.getSetting('repeaterID'),
                            credentials: { password: password } });
-        
+        */
         UI.rfb.addEventListener("connect", UI.connectFinished);
         UI.rfb.addEventListener("disconnect", UI.disconnectFinished);
         UI.rfb.addEventListener("credentialsrequired", UI.credentials);
@@ -1659,6 +1691,25 @@ if (l10n.language === "en" || l10n.dictionary !== undefined) {
         .then((translations) => { l10n.dictionary = translations; })
         .catch(err => Log.Error("Failed to load translations: " + err))
         .then(UI.prime);
+}
+
+//testing 
+function readQueryVariable(name, defaultValue) {
+    // A URL with a query parameter can look like this:
+    // https://www.example.com?myqueryparam=myvalue
+    //
+    // Note that we use location.href instead of location.search
+    // because Firefox < 53 has a bug w.r.t location.search
+    const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
+          match = document.location.href.match(re);
+    if (typeof defaultValue === 'undefined') { defaultValue = null; }
+
+    if (match) {
+        // We have to decode the URL since want the cleartext value
+        return decodeURIComponent(match[1]);
+    }
+
+    return defaultValue;
 }
 
 export default UI;
