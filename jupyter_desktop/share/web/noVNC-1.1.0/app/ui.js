@@ -992,8 +992,8 @@ const UI = {
             return;
         }
 
-        //const host = UI.getSetting('host');
-        //const port = UI.getSetting('port');
+        const host = UI.getSetting('host');
+        const port = UI.getSetting('port');
         //const path = UI.getSetting('path');
 
         
@@ -1008,11 +1008,12 @@ const UI = {
         
 
         //try these
-        const host = readQueryVariable('host', window.location.hostname);
-        let port = readQueryVariable('port', window.location.port);
-        password = readQueryVariable('password', ''); // ha=a=aahahah
-        // MODIFICATION FROM vnc_lite.html
+        //const host = readQueryVariable('host', window.location.hostname);
+        //let port = readQueryVariable('port', window.location.port);
+        //password = readQueryVariable('password', ''); // ha=a=aahahah
+        // MODIFICATION FROM vnc_lite.html try with just the path
         const path = readQueryVariable('path', window.location.pathname.replace(/[^/]*$/, '').substring(1) + 'websockify');
+        // this path is what messes it all over. 
         // end try these
 
 
@@ -1045,15 +1046,17 @@ const UI = {
         //simply swapping this in does not work (before it was desktop but the get element needs to change)
         //should have been novnc container hold up
         // regardless if i use this or the other one I get the same error with 1006 for websockify in the same place
-        UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
-              { credentials: { password: password } });
-        /*
+        //this works, but only after the host, port, password change
+        //UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
+        //      { credentials: { password: password } });
+        
+        //also works but only with the host, port, password change. 
         UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
                          { shared: UI.getSetting('shared'),
                            showDotCursor: UI.getSetting('show_dot'),
                            repeaterID: UI.getSetting('repeaterID'),
                            credentials: { password: password } });
-        */
+        
         UI.rfb.addEventListener("connect", UI.connectFinished);
         UI.rfb.addEventListener("disconnect", UI.disconnectFinished);
         UI.rfb.addEventListener("credentialsrequired", UI.credentials);
@@ -1693,7 +1696,7 @@ if (l10n.language === "en" || l10n.dictionary !== undefined) {
         .then(UI.prime);
 }
 
-//testing 
+//testing works 
 function readQueryVariable(name, defaultValue) {
     // A URL with a query parameter can look like this:
     // https://www.example.com?myqueryparam=myvalue
