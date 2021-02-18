@@ -999,6 +999,9 @@ const UI = {
 
         let url;
 
+        // TESTING check if just WS will make it work (does nto work)
+        //url = UI.getSetting('encrypt') ? 'ws' : 'ws';
+        //original
         url = UI.getSetting('encrypt') ? 'wss' : 'ws';
 
         url += '://' + host;

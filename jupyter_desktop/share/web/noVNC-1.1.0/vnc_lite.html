@@ -168,7 +168,7 @@
         if (window.location.protocol === "https:") {
             url = 'wss';
         } else {
-            url = 'ws';
+            url = 'ws'; //uses this on local 
         }
         url += '://' + host;
         if(port) {
@@ -177,6 +177,7 @@
         url += '/' + path;
 
         // Creating a new RFB object will start a new connection
+        // This new RFB works fine
         rfb = new RFB(document.getElementById('screen'), url,
                       { credentials: { password: password } });
 
