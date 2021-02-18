@@ -51,8 +51,8 @@ def setup_desktop():
         ],
         'port': 5901,
         'timeout': 30,
-        'mappath': {'/': '/vnc_lite.html'}, #uncomment if you want it to work (1.1.0) has websocket error w/ 1.2.0
-        #'mappath': {'/': '/vnc.html'}, #fails w/ tigervnc or turbovnc regardless
+        #'mappath': {'/': '/vnc_lite.html'}, #uncomment if you want it to work (1.1.0) has websocket error w/ 1.2.0
+        'mappath': {'/': '/vnc.html'}, #fails w/ tigervnc or turbovnc regardless
         #"ws://127.0.0.1:8888/websockify"
         #some websocket error, investigate, same websocket error with 1.2.0
         #

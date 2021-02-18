@@ -1101,6 +1101,7 @@ if(port) {
 url += '/' + path;
 */
 // Creating a new RFB object will start a new connection
+/*
 rfb = new RFB(document.getElementById('screen'), url,
               { credentials: { password: password } });
 
@@ -1114,7 +1115,7 @@ rfb.addEventListener("desktopname", updateDesktopName);
 rfb.viewOnly = readQueryVariable('view_only', false);
 // MODIFICATION FROM vnc_lite.html
 rfb.scaleViewport = readQueryVariable('scale', true);
-
+*/
         // end from orig vnc
 
         let url;
@@ -1146,11 +1147,18 @@ rfb.scaleViewport = readQueryVariable('scale', true);
         url += '/' + path;
 
 
+        //THIS RFB SEEMS to mess with it. 
+        /*
         UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
                          { shared: UI.getSetting('shared'),
                            showDotCursor: UI.getSetting('show_dot'),
                            repeaterID: UI.getSetting('repeaterID'),
                            credentials: { password: password } });
+        */  
+        // simply swapping this in does not work   
+        UI.rfb = new RFB(document.getElementById('screen'), url,
+              { credentials: { password: password } });
+               
         UI.rfb.addEventListener("connect", UI.connectFinished);
         UI.rfb.addEventListener("disconnect", UI.disconnectFinished);
         UI.rfb.addEventListener("credentialsrequired", UI.credentials);

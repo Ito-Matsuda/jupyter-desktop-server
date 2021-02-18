@@ -1010,11 +1010,18 @@ const UI = {
         }
         url += '/' + path;
 
+        //simply swapping this in does not work (before it was desktop but the get element needs to change)
+        //should have been novnc container hold up
+        // regardless if i use this or the other one I get the same error with 1006 for websockify in the same place
+        //UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
+        //      { credentials: { password: password } });
+        
         UI.rfb = new RFB(document.getElementById('noVNC_container'), url,
                          { shared: UI.getSetting('shared'),
                            showDotCursor: UI.getSetting('show_dot'),
                            repeaterID: UI.getSetting('repeaterID'),
                            credentials: { password: password } });
+        
         UI.rfb.addEventListener("connect", UI.connectFinished);
         UI.rfb.addEventListener("disconnect", UI.disconnectFinished);
         UI.rfb.addEventListener("credentialsrequired", UI.credentials);
